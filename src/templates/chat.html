@@ -1,0 +1,102 @@
+{% extends "base.html"%}
+
+{% block content %}
+<style>
+    /* Import a beautiful font from Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    /* Apply the font and style to h1 and h2 */
+    h1, h2 {
+        font-family: 'Roboto', sans-serif; /* Apply the font */
+    }
+
+    h1 {
+        font-size: 2.5em; /* Set font size for h1 */
+        color: #333; /* Dark color for better readability */
+        margin-bottom: 20px; /* Add space below the heading */
+    }
+
+    h2 {
+        font-size: 2em; /* Set font size for h2 */
+        color: #555; /* Slightly lighter color */
+        margin-bottom: 15px; /* Add space below the heading */
+    }
+
+    /* Style for the input field */
+    #messageText {
+        width: 80%; /* Increase the width */
+        padding: 10px; /* Add some padding for better readability */
+        margin: 10px 0; /* Add some margin for spacing */
+        font-size: 16px; /* Increase font size */
+        border: 2px solid #ccc; /* Add a border */
+        border-radius: 5px; /* Round the corners */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+
+    /* Style for the button */
+    button {
+        padding: 10px 20px; /* Increase padding for a larger clickable area */
+        margin: 10px; /* Add some margin for spacing */
+        font-size: 16px; /* Increase font size */
+        color: white; /* Button text color */
+        background-color: #007BFF; /* Button background color */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Round the corners */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    }
+
+    /* Hover effect for the button */
+    button:hover {
+        background-color: #0056b3; /* Darker background on hover */
+    }
+
+    /* Style for the messages container */
+    #messages {
+        width: 80%; /* Match the width of the input field */
+        max-height: 450px; /* Set a maximum height */
+        margin: 20px 0; /* Add some margin for spacing */
+        padding: 10px; /* Add padding for better readability */
+        border: 2px solid #ccc; /* Add a border */
+        border-radius: 10px; /* Round the corners */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        overflow-y: auto; /* Enable vertical scrolling if content overflows */
+        font-family: 'Roboto', sans-serif; /* Apply the font */
+        background-color: #fff; /* Set a background color */
+    }
+
+    /* Style for individual messages */
+    #messages li {
+        margin-bottom: 10px; /* Add some space between messages */
+        font-size: 16px; /* Ensure the font size matches the input field */
+    }
+</style>
+<h1>API</h1>
+<h2>Your ID: <span id="ws-id"></span></h2>
+<form action="" onsubmit="sendMessage(event)">
+    <input type="text" id="messageText" autocomplete="off"/>
+    <button>Send</button>
+</form>
+<ul id='messages'>
+</ul>
+<script>
+    var client_id = Date.now()
+    document.querySelector("#ws-id").textContent = client_id;
+    var ws = new WebSocket(`ws://localhost:3000/chat/ws/${client_id}`);
+    ws.onmessage = function(event) {
+        var messages = document.getElementById('messages')
+        var message = document.createElement('li')
+        var content = document.createTextNode(event.data)
+        message.appendChild(content)
+        messages.appendChild(message)
+        messages.scrollTop = messages.scrollHeight;
+    };
+    function sendMessage(event) {
+        var input = document.getElementById("messageText")
+        ws.send(input.value)
+        input.value = ''
+        event.preventDefault()
+    }
+</script>
+{% endblock %}

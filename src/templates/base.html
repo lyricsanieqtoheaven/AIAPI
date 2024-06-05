@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply the imported font to the whole document */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    {% block head %}{% endblock %}
+    <title>DLAPI</title>
+</head>
+<body>
+    <nav class="flex justify-between text-3xl my-3 bg-red-500 text-black">
+        <ul class="flex ml-10">
+            <li>Задайте вопрос</li>
+        </ul>
+    </nav>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
