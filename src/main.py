@@ -15,7 +15,8 @@ app.include_router(router_chat)
 origins = [
     "http://localhost:3000",
     "http://localhost:7333",
-    "http://localhost:8000"
+    "http://localhost:8000",
+    "https://dl.gsu.by",
 ]
 
 app.add_middleware(
