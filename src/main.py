@@ -16,6 +16,8 @@ origins = [
     "http://localhost:3000",
     "http://localhost:7333",
     "http://localhost:8000",
+    "http://dl",
+    "http://dl.gsu.by",
     "https://dl.gsu.by",
 ]
 

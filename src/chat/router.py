@@ -1,18 +1,30 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse
 from g4f.client import Client
+'''from g4f.Provider import (
+  Koala,
+  RetryProvider
+)
+import g4f'''
 
 client = Client()
 
+'''client = Client(
+    provider = RetryProvider([
+        Koala
+    ]) 
+)'''
+
 def ask_gpt(messages: str) -> str:
     response = client.chat.completions.create(
-        model="gpt-4", #gpt-3.5-turbo
+        model="gpt-3.5-turbo", #gpt-3.5-turbo
         messages=[{"role": "user", "content": messages}])
-    return response.choices[0].message.content
+    return (response.choices[0].message.content or "")
+    
 
 
 router = APIRouter(
-    prefix="/chat",
+    prefix="/ai/chat",
     tags=["Chat"]
 )
 

@@ -85,7 +85,7 @@
     document.querySelector("#ws-id").textContent = client_id;
 
     var wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    var wsUrl = `${wsProtocol}//${window.location.hostname}/chat/ws/${client_id}`;
+    var wsUrl = `${wsProtocol}//${window.location.hostname}/ai/chat/ws/${client_id}`;
 
     var ws = new WebSocket(wsUrl);
     //var ws = new WebSocket(`ws://localhost:8000/chat/ws/${client_id}`);
