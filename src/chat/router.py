@@ -50,9 +50,9 @@ def get_access_token() -> str:
         verify=False,
     )
     access_token = res.json()["access_token"]
-    c = cookies.SimpleCookie()
+    '''c = cookies.SimpleCookie()
     c["token"] = access_token
-    print(c)
+    print(c)'''
     return access_token
 
 def send_prompt(msg: str, access_token: str):
@@ -109,7 +109,6 @@ manager = ConnectionManager()
 async def websocket_endpoint(websocket: WebSocket, client_id: int):
     await manager.connect(websocket)
     try:
-        get_access_token()
         while True:
             data = await websocket.receive_text()
             value = await websocket.receive_text()
